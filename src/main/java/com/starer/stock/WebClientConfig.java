@@ -11,6 +11,7 @@ public class WebClientConfig {
 
     @Bean
     public ReactorResourceFactory resourceFactory() {
+//        test
         ReactorResourceFactory factory = new ReactorResourceFactory();
         factory.setUseGlobalResources(false);
         return factory;

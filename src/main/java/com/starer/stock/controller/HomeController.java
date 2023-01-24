@@ -28,6 +28,7 @@ public class HomeController {
     @GetMapping("/jsonapi")
     @ResponseBody
     public String callApiWithJson() {
+        //test
         StringBuffer result = new StringBuffer();
         String jsonPrintString = null;
         try {

@@ -1,12 +1,40 @@
 package com.starer.stock.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
-@Getter @Setter
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SampleDto {
 
-    private int totalCount;
+    @JsonProperty("itmsNm")
+    private String stockName;
+
+    @JsonProperty("basDt")
+    private String baseDate;
+
+    @JsonProperty("mrktCtg")
+    private String marketClass;
+
+    private String isinCd;
+
+    private int clpr;
+
+    private int vs;
+
+    private float fltRt;
+    private int mkp;
+    private int hipr;
+    private int lopr;
+    private long trqu;
+    private long trPrc;
+    private long lstgStCnt;
+    private long mrktTotAmt;
+
+
+
+
+
 
 }

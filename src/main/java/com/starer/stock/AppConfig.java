@@ -1,21 +1,19 @@
 package com.starer.stock;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.reactive.ReactorResourceFactory;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.StringReader;
 
 @Configuration
-public class WebClientConfig {
-
-    @Bean
-    public ReactorResourceFactory resourceFactory() {
-//        test
-        ReactorResourceFactory factory = new ReactorResourceFactory();
-        factory.setUseGlobalResources(false);
-        return factory;
-    }
+public class AppConfig {
 
     @Bean
     public WebClient webClient(){
@@ -29,4 +27,18 @@ public class WebClientConfig {
                 .build();
     }
 
+    @Bean
+    public DocumentBuilder documentBuilder() throws Exception{
+
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+        return dBuilder;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper(){
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper;
+    }
 }

@@ -21,8 +21,8 @@ public class HomeController {
 
     @GetMapping("/home")
     @ResponseBody
-    public String Home() throws UnsupportedEncodingException {
-        return webService.useWebClient();
+    public String Home(String stockName) throws Exception {
+        return webService.call(stockName);
     }
 
     @GetMapping("/jsonapi")

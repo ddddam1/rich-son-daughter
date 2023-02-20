@@ -1,13 +1,12 @@
 package com.starer.stock.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.starer.stock.AppConfig;
-import com.starer.stock.model.SampleDto;
+import com.starer.stock.model.RequestDto;
+import com.starer.stock.model.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.w3c.dom.Document;
@@ -15,14 +14,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
 
 @Service
 @RequiredArgsConstructor
@@ -31,9 +26,9 @@ public class WebService {
     private final WebClient webClient;
     private final DocumentBuilder dBuilder;
     private final ObjectMapper objectMapper;
+    private final FormattingConversionService conversionService;
 
     // tag값의 정보를 가져오는 함수
-
     public static String getTagValue(String tag, Element eElement) {
 
         //결과를 저장할 result 변수 선언
@@ -62,7 +57,7 @@ public class WebService {
         return result;
     }
 
-    public String call(String stockName) throws Exception {
+    public String call(RequestDto requestDto) throws Exception {
         String serviceKey = "L287ZhVphoAlHm6Qs1C7f3H%2FpwT6%2BYlr4TK7t7AxhoMKsUtThnlwPHpnnYfbpwLomNF6wxNm%2FQh0N8EoRH4Rpw%3D%3D";
 
         String result = webClient.get()
@@ -71,7 +66,8 @@ public class WebService {
                         .queryParam("numOfRows", 10)
                         .queryParam("pageNo", 1)
                         .queryParam("resultType", "json")
-                        .queryParam("itmsNm", stockName)
+                        .queryParam("itmsNm", URLEncoder.encode(requestDto.getStockName()))
+                        .queryParam("endBasDt", requestDto.getBaseDate())
                         .build())
                 .retrieve()
                 .bodyToMono(String.class)
@@ -89,33 +85,33 @@ public class WebService {
                 JSONObject item = list.getJSONObject(i);
                 String jsonString = item.toString();
 
-                SampleDto sampleDto = objectMapper.readValue(jsonString, SampleDto.class);
+                ResponseDto responseDto = objectMapper.readValue(jsonString, ResponseDto.class);
 
-                System.out.print(sampleDto.getStockName());
+                System.out.print(responseDto.getStockName());
                 System.out.print(" | ");
-                System.out.print(sampleDto.getBaseDate());
+                System.out.print(responseDto.getBaseDate());
                 System.out.print(" | ");
-                System.out.print(sampleDto.getVs());
+                System.out.print(getFormatted(responseDto.getVersus()));
                 System.out.print(" | ");
-                System.out.print(sampleDto.getMarketClass());
+//                System.out.print(responseDto.getMarketClass());
+//                System.out.print(" | ");
+//                System.out.print(responseDto.getIsinCode());
+//                System.out.print(" | ");
+                System.out.print(getFormatted(responseDto.getClosingPrice()));
                 System.out.print(" | ");
-                System.out.print(sampleDto.getIsinCd());
+                System.out.print(getFormatted(responseDto.getMarketPrice()));
                 System.out.print(" | ");
-                System.out.print(sampleDto.getClpr());
+                System.out.print(getFormatted(responseDto.getLowPrice()));
                 System.out.print(" | ");
-                System.out.print(sampleDto.getLopr());
+                System.out.print(getFormatted(responseDto.getHighPrice()));
                 System.out.print(" | ");
-                System.out.print(sampleDto.getHipr());
+                System.out.print(getFormatted(responseDto.getListedStockCount()));
                 System.out.print(" | ");
-                System.out.print(sampleDto.getMkp());
+                System.out.print(getFormatted(responseDto.getMarketTotalAmount()));
                 System.out.print(" | ");
-                System.out.print(sampleDto.getLstgStCnt());
+                System.out.print(responseDto.getTradeQuantity());
                 System.out.print(" | ");
-                System.out.print(sampleDto.getMrktTotAmt());
-                System.out.print(" | ");
-                System.out.print(sampleDto.getTrqu());
-                System.out.print(" | ");
-                System.out.print(sampleDto.getFltRt());
+                System.out.print(responseDto.getVersusRate());
                 System.out.println();
             }
 
@@ -143,10 +139,15 @@ public class WebService {
             } catch (Exception e) {
                 return e.toString();
             }
-
             return "error";
         }
-
     }
 
+    private String getFormatted(int price) {
+        return conversionService.convert(price, String.class);
+    }
+
+    private String getFormatted(long price) {
+        return conversionService.convert(price, String.class);
+    }
 }

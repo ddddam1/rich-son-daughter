@@ -1,10 +1,11 @@
 package com.starer.stock.controller;
 
+import com.starer.stock.model.RequestDto;
 import com.starer.stock.service.WebService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -19,10 +20,16 @@ public class HomeController {
 
     private final WebService webService;
 
+//    @GetMapping("/")
+//    public String Home(@ModelAttribute("dto") RequestDto dto) {
+//        System.out.println(dto.getPrice());
+//        return "home";
+//    }
+
     @GetMapping("/home")
     @ResponseBody
-    public String Home(String stockName) throws Exception {
-        return webService.call(stockName);
+    public String Home(RequestDto requestDto) throws Exception {
+        return webService.call(requestDto);
     }
 
     @GetMapping("/jsonapi")

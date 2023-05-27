@@ -3,6 +3,7 @@ package com.starer.stock.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.starer.stock.model.RequestDto;
 import com.starer.stock.model.ResponseDto;
+import com.starer.stock.repository.ResponseRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ public class WebService {
     private final DocumentBuilder dBuilder;
     private final ObjectMapper objectMapper;
     private final FormattingConversionService conversionService;
+    private final ResponseRepository responseRepository;
 
     // tag값의 정보를 가져오는 함수
     public static String getTagValue(String tag, Element eElement) {
@@ -86,6 +88,8 @@ public class WebService {
                 String jsonString = item.toString();
 
                 ResponseDto responseDto = objectMapper.readValue(jsonString, ResponseDto.class);
+
+                responseRepository.save(responseDto);
 
                 System.out.print(responseDto.getStockName());
                 System.out.print(" | ");

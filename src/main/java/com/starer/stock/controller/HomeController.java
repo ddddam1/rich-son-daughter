@@ -1,6 +1,9 @@
 package com.starer.stock.controller;
 
 import com.starer.stock.model.RequestDto;
+import com.starer.stock.model.ResponseDto;
+import com.starer.stock.repository.RequestRepository;
+import com.starer.stock.repository.ResponseRepository;
 import com.starer.stock.service.WebService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,12 +16,15 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 
     private final WebService webService;
+    private final RequestRepository requestRepository;
+//    private final ResponseRepository responseRepository;
 
 //    @GetMapping("/")
 //    public String Home(@ModelAttribute("dto") RequestDto dto) {
@@ -29,6 +35,14 @@ public class HomeController {
     @GetMapping("/home")
     @ResponseBody
     public String Home(RequestDto requestDto) throws Exception {
+
+        List<ResponseDto> result = requestRepository.findByStockNameAndBaseDate(requestDto.getStockName(), requestDto.getBaseDate());
+
+        if (result.size() > 0) {
+            return result.toString();
+        }
+        requestRepository.save(requestDto);
+
         return webService.call(requestDto);
     }
 

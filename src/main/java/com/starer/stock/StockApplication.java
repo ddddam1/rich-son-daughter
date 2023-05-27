@@ -11,8 +11,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication
 public class StockApplication {
 
-	@Autowired
-	private CustomerRepository repository;
+//	@Autowired
+//	private CustomerRepository repository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(StockApplication.class, args);

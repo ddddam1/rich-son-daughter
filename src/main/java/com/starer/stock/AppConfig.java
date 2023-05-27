@@ -20,16 +20,10 @@ import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 @Configuration
 public class AppConfig {
@@ -83,36 +77,3 @@ public class AppConfig {
         return conversionService;
     }
 }
-
-//public final class NumberFormatAnnotationFormatterFactory
-//        implements AnnotationFormatterFactory<NumberFormat> {
-//
-//    public Set<Class<?>> getFieldTypes() {
-//        return new HashSet<Class<?>>(Arrays.asList(new Class<?>[] {
-//                Short.class, Integer.class, Long.class, Float.class,
-//                Double.class, BigDecimal.class, BigInteger.class }));
-//    }
-//
-//    public Printer<Number> getPrinter(NumberFormat annotation, Class<?> fieldType) {
-//        return configureFormatterFrom(annotation, fieldType);
-//    }
-//
-//    public Parser<Number> getParser(NumberFormat annotation, Class<?> fieldType) {
-//        return configureFormatterFrom(annotation, fieldType);
-//    }
-//
-//    private Formatter<Number> configureFormatterFrom(NumberFormat annotation, Class<?> fieldType) {
-//        if (!annotation.pattern().isEmpty()) {
-//            return new NumberStyleFormatter(annotation.pattern());
-//        } else {
-//            NumberFormat.Style style = annotation.style();
-//            if (style == NumberFormat.Style.PERCENT) {
-//                return new PercentStyleFormatter();
-//            } else if (style == NumberFormat.Style.CURRENCY) {
-//                return new CurrencyStyleFormatter();
-//            } else {
-//                return new NumberStyleFormatter();
-//            }
-//        }
-//    }
-//}

@@ -7,6 +7,13 @@ spring:
       username: root
       password: toor
       database: stock
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
 
   datasource:
     url: jdbc:mysql://localhost:3306/stock
@@ -29,3 +36,9 @@ logging:
 
 jwt:
   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'

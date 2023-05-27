@@ -1,10 +1,14 @@
 package com.starer.stock.controller;
 
+import com.starer.stock.model.RequestDto;
+import com.starer.stock.model.ResponseDto;
+import com.starer.stock.repository.RequestRepository;
+import com.starer.stock.repository.ResponseRepository;
 import com.starer.stock.service.WebService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -12,17 +16,34 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 
     private final WebService webService;
+    private final RequestRepository requestRepository;
+//    private final ResponseRepository responseRepository;
+
+//    @GetMapping("/")
+//    public String Home(@ModelAttribute("dto") RequestDto dto) {
+//        System.out.println(dto.getPrice());
+//        return "home";
+//    }
 
     @GetMapping("/home")
     @ResponseBody
-    public String Home() throws UnsupportedEncodingException {
-        return webService.useWebClient();
+    public String Home(RequestDto requestDto) throws Exception {
+
+        List<ResponseDto> result = requestRepository.findByStockNameAndBaseDate(requestDto.getStockName(), requestDto.getBaseDate());
+
+        if (result.size() > 0) {
+            return result.toString();
+        }
+        requestRepository.save(requestDto);
+
+        return webService.call(requestDto);
     }
 
     @GetMapping("/jsonapi")

@@ -24,13 +24,6 @@ public class HomeController {
 
     private final WebService webService;
     private final RequestRepository requestRepository;
-//    private final ResponseRepository responseRepository;
-
-//    @GetMapping("/")
-//    public String Home(@ModelAttribute("dto") RequestDto dto) {
-//        System.out.println(dto.getPrice());
-//        return "home";
-//    }
 
     @GetMapping("/home")
     @ResponseBody

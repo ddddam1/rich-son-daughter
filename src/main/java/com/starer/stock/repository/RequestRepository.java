@@ -1,5 +1,6 @@
 package com.starer.stock.repository;
 
+import com.starer.stock.collection.Search;
 import com.starer.stock.model.RequestDto;
 import com.starer.stock.model.ResponseDto;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -8,6 +9,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import java.util.List;
 
 @EnableMongoRepositories
-public interface RequestRepository extends MongoRepository<RequestDto, String> {
+public interface RequestRepository extends MongoRepository<Search, String> {
     public List<ResponseDto> findByStockNameAndBaseDate(String stockName, String baseDate);
 }

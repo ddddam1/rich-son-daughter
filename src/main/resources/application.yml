@@ -16,10 +16,15 @@ spring:
     cache: false
 
   datasource:
-    url: jdbc:mysql://localhost:3306/stock
-    username: root
-    password: toor
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:tcp://localhost/~/stock
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/stock
+#    username: root
+#    password: toor
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: create
@@ -42,3 +47,6 @@ jwt:
 #    web:
 #      exposure:
 #        include: '*'
+
+setting:
+  capital: 50000000

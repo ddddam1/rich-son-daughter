@@ -36,16 +36,10 @@ public class MemberController {
         return tokenInfo;
     }
 
-    @PostMapping("/test")
-    public String test() {
-        return "success";
-    }
-
     @PostMapping("/change")
     @Transactional
     public String changeUserName(Long id, String newName) {
         Optional<Member> byId = memberRepository.findById(id);
-//        Optional<Member> byName = memberRepository.findByName(tempName);
         if (byId.isPresent()) {
             Member member = byId.get();
             member.setName(newName);

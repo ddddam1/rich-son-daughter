@@ -27,9 +27,9 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-//            .antMatchers("/**").permitAll()// 우선 모두 허용
-                .antMatchers("/").permitAll()
-                .antMatchers("/members/issue").permitAll()
+            .antMatchers("/**").permitAll()// 우선 모두 허용
+            .antMatchers("/").permitAll()
+            .antMatchers("/members/issue").permitAll()
 //                .antMatchers("/members/test").hasRole("USER")
             .anyRequest().authenticated()
             .and()

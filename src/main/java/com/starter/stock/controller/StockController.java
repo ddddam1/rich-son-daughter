@@ -27,7 +27,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class StockController {
 
     private final WebService webService;
 
@@ -36,16 +36,25 @@ public class HomeController {
     private final RankingRepository rankingRepository;
     private final SearchService searchService;
 
+    @GetMapping("/home")
+    public String Home() {
+        return "home";
+    }
+    @GetMapping("/test")
+    public String Test() {
+        return "index.html";
+    }
+
     @GetMapping("/")
     @ResponseBody
-    public String Home(RequestDto requestDto) throws Exception {
+    public String OpenMarket(RequestDto requestDto) throws Exception {
         SearchParam searchParam = new SearchParam();
-        searchParam.setBaseDate(requestDto.getBuyDate());
+        searchParam.setBaseDate(requestDto.getBuyDate().replaceAll(".", ""));
         searchParam.setStockName(requestDto.getStockName());
 
         Result buyResult = searchService.search(searchParam);
 
-        searchParam.setBaseDate(requestDto.getSellDate());
+        searchParam.setBaseDate(requestDto.getSellDate().replaceAll(".", ""));
         Result sellResult = searchService.search(searchParam);
 
         Record record = new Record();
@@ -84,7 +93,6 @@ public class HomeController {
     @GetMapping("/jsonapi")
     @ResponseBody
     public String callApiWithJson() {
-        //test
         StringBuffer result = new StringBuffer();
         String jsonPrintString = null;
         try {

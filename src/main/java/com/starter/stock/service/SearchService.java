@@ -13,10 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SearchService {
-//    private final RequestRepository requestRepository;
     private final ResponseRepository responseRepository;
-
-    private final RecordRepository rankRepository;
 
     private final WebService webService;
 

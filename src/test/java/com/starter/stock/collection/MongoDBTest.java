@@ -16,15 +16,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 public class MongoDBTest {
 
-//    @Autowired
-//    private _CustomerRepository customerRepository;
-//
-//    @Test
-//    void testSave() {
-//        _Customer customer = new _Customer("kim", "sodam");
-//        customerRepository.save(customer);
-//    }
-
     @Autowired
     private ResponseRepository responseRepository;
 
@@ -34,7 +25,6 @@ public class MongoDBTest {
     @Test
     public void test() {
         SearchParam param = new SearchParam();
-//        ResponseDto param = new ResponseDto();
         param.setBaseDate("20230320");
         param.setStockName("삼성전자");
         List<Result> byStockNameAndBaseDate = responseRepository.findByStockNameAndBaseDate(param.getStockName(), param.getBaseDate());

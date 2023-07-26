@@ -1,6 +1,7 @@
 package com.starter.stock.domain;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,7 +23,10 @@ public class Record {
 
     private int stockCount;
     private String stockName;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date buyDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date sellDate;
     private int income;
 

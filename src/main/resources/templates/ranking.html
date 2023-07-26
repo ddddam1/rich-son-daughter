@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="fragments/header :: header" />
+</head>
+
+<body id="page-top">
+<nav th:replace="fragments/nav :: nav" />
+<!-- Portfolio Section-->
+
+<div class="masthead text-white text-center">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Ranking</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            <!-- Portfolio Item 1-->
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">주식명</th>
+                    <th scope="col">Buy</th>
+                    <th scope="col">Sell</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">수익</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item, i : ${ranking}">
+                        <td th:text="${i.count}"></td>
+                        <td th:text="${item.stockName}"></td>
+                        <td th:text="${#dates.format(item.buyDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${#dates.format(item.sellDate, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${#numbers.formatInteger(item.stockCount, 3, 'COMMA')}"></td>
+                        <td th:text="${#numbers.formatInteger(item.income, 3, 'COMMA') + '원'}"></td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer" />
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script src="/js/form.js"></script>
+</body>
+</html>

@@ -14,7 +14,9 @@ import com.starter.stock.service.SearchService;
 import com.starter.stock.service.Util;
 import com.starter.stock.service.WebService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedInputStream;
@@ -45,16 +47,16 @@ public class StockController {
         return "index.html";
     }
 
-    @GetMapping("/")
+    @PostMapping("/")
     @ResponseBody
-    public String OpenMarket(RequestDto requestDto) throws Exception {
+    public String OpenMarket(@RequestBody RequestDto requestDto) throws Exception {
         SearchParam searchParam = new SearchParam();
-        searchParam.setBaseDate(requestDto.getBuyDate().replaceAll(".", ""));
+        searchParam.setBaseDate(requestDto.getBuyDate().replaceAll("-", ""));
         searchParam.setStockName(requestDto.getStockName());
 
         Result buyResult = searchService.search(searchParam);
 
-        searchParam.setBaseDate(requestDto.getSellDate().replaceAll(".", ""));
+        searchParam.setBaseDate(requestDto.getSellDate().replaceAll("-", ""));
         Result sellResult = searchService.search(searchParam);
 
         Record record = new Record();
@@ -88,6 +90,14 @@ public class StockController {
         memberRepository.save(guest);
 
         return guest.getMemberId().toString() + ", " + ranking.getName();
+    }
+
+
+    @GetMapping("/ranking/list")
+    public String Ranking(Model model) {
+        List<Record> all = recordRepository.findAll(Sort.by(Sort.Direction.DESC, "income"));
+        model.addAttribute("ranking", all);
+        return "ranking";
     }
 
     @GetMapping("/jsonapi")

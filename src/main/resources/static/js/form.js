@@ -3,16 +3,17 @@ let postObject = {
 
 	init: function() {
 		let _this = this;
-
+		_this.setDate();
         document.getElementById('btnConfirm').addEventListener("click", _this.insertPost);
 	},
 
 	insertPost: function(e) {
-		    const form = new FormData(document.getElementById('formStock'));
-    	    const data = Array.from(form.entries()).reduce((memo, [key, value]) => ({
-                ...memo,
-                [key]: value,
-              }), {});
+
+        const form = new FormData(document.getElementById('formStock'));
+        const data = Array.from(form.entries()).reduce((memo, [key, value]) => ({
+            ...memo,
+            [key]: value,
+          }), {});
 
 //	  fetch("/", {
 //                method: 'post',
@@ -41,6 +42,10 @@ let postObject = {
         xhr.onload = () => {
             if (xhr.status == 200) {
             	//success
+            	let income = xhr.response;
+            	document.getElementById('devIncomeImg').src = '/assets/img/' + postObject.getIncomeImage(income) + '.png';
+            	document.getElementById('devIncome').innerText = Number(income).toLocaleString('ko-KR') + ' 원';
+
             	new bootstrap.Modal('#portfolioModal1', {}).show();
                 console.log(xhr.response);
             } else {
@@ -51,7 +56,42 @@ let postObject = {
             }
         }
 
+	},
+	getIncomeImage: function(income) {
+	    let rate = income/50000000 * 100;
+
+	    if(rate > 50) {
+	        return "gold";
+	    } else if (rate > 10) {
+	        return "ring";
+	    } else if (rate > 5) {
+	        return "chicken";
+	    } else if (rate > 0) {
+            return "coffee";
+        } else if (rate > -5) {
+	        return "paw";
+	    } else if (rate > -10) {
+	        return "danger";
+	    } else {
+	        return "handcuffs";
+	    }
+
+	},
+	setDate: function(){
+        let thisDate = new Date();
+        let day = thisDate.getDay();
+
+        let calcDate = thisDate.getDate() - day - 6;
+
+        //저번주 월요일
+        let nextDate = new Date(thisDate.setDate(calcDate)).toISOString().substring(0, 10);
+        document.getElementById('devBuyDate').value = nextDate;
+
+        //저번주 금요일
+        let calcDate2 =  new Date(thisDate.setDate(calcDate + 4)).toISOString().substring(0, 10);
+        document.getElementById('devSellDate').value = calcDate2;
 	}
+
 }
 
 // postObject 객체의 init() 함수 호출.

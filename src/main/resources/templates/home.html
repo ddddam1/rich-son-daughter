@@ -23,10 +23,10 @@
                     <input type="text" class="form-control" name="stockName" placeholder="주식명을 입력하세요." value="삼성전자"/>
                 </div>
                 <div class="col-md-3">
-                    <input type="date" class="form-control" name="buyDate" value="2023-07-17"/>
+                    <input type="date" class="form-control" name="buyDate" id="devBuyDate" value="2023-07-17"/>
                 </div>
                 <div class="col-md-3">
-                    <input type="date" class="form-control" name="sellDate" value="2023-07-21"/>
+                    <input type="date" class="form-control" name="sellDate" id="devSellDate" value="2023-07-21"/>
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn btn-outline-light" id="btnConfirm">확인하기!</button>
@@ -34,49 +34,6 @@
             </form>
         </div>
     </div>
-<!--    &lt;!&ndash; About Section&ndash;&gt;-->
-<!--    <section class="page-section bg-primary text-white mb-0" id="about">-->
-<!--        <div class="container">-->
-<!--            &lt;!&ndash; About Section Heading&ndash;&gt;-->
-<!--            <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>-->
-<!--            &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--            <div class="divider-custom divider-light">-->
-<!--                <div class="divider-custom-line"></div>-->
-<!--                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>-->
-<!--                <div class="divider-custom-line"></div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; About Section Content&ndash;&gt;-->
-<!--            <div class="row">-->
-<!--                <div class="col-lg-4 ms-auto"><p class="lead">닉네임 변경을 넣자</p></div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; About Section Button&ndash;&gt;-->
-<!--            <div class="text-center mt-4">-->
-<!--                <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">-->
-<!--                    <i class="fas fa-download me-2"></i>-->
-<!--                    Free Download!-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-<!--    &lt;!&ndash; Contact Section&ndash;&gt;-->
-<!--    <section class="page-section" id="contact">-->
-<!--        <div class="container">-->
-<!--            &lt;!&ndash; Contact Section Heading&ndash;&gt;-->
-<!--            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>-->
-<!--            &lt;!&ndash; Icon Divider&ndash;&gt;-->
-<!--            <div class="divider-custom">-->
-<!--                <div class="divider-custom-line"></div>-->
-<!--                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>-->
-<!--                <div class="divider-custom-line"></div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Contact Section Form&ndash;&gt;-->
-<!--            <div class="row justify-content-center">-->
-<!--                <div class="col-lg-8 col-xl-7">-->
-<!--                    <div class="col-lg-4 ms-auto"><p class="lead">내 정보를 넣자</p></div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
 
     <div th:replace="fragments/footer :: footer" />
     <!-- Portfolio Modals-->
@@ -96,10 +53,9 @@
                                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                     <div class="divider-custom-line"></div>
                                 </div>
-                                <!-- Portfolio Modal - Image-->
-                                <img class="img-fluid rounded mb-5" width="300px" src="/assets/img/free-icon-gold-mine-8237672.png" alt="..." />
-                                <!-- Portfolio Modal - Text-->
-                                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <img class="img-fluid rounded mb-5" id="devIncomeImg" width="200px" src="" alt="..." />
+                                <img class="img-fluid rounded mb-5" width="200px" src="/assets/img/hand.png" alt="..." />
+                                <h4 class="text-uppercase mb-4 text-secondary" id="devIncome"></h4>
                                 <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     Close Window
@@ -120,8 +76,6 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/form.js"></script>
     </body>
 </html>

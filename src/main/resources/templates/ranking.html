@@ -39,7 +39,10 @@
                         <td th:text="${#dates.format(item.buyDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${#dates.format(item.sellDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${#numbers.formatInteger(item.stockCount, 3, 'COMMA')}"></td>
-                        <td th:text="${#numbers.formatInteger(item.income, 3, 'COMMA') + '원'}"></td>
+                        <td>
+                            <span th:text="${#numbers.formatInteger(item.income, 3, 'COMMA') + '원'}"></span>
+                            <img class="img-fluid rounded mb-5" width="30px" th:src="@{${'/assets/img/' + postObject.getIncomeImage(item.income) + '.png'}}"/>
+                        </td>
                     </tr>
                 </tbody>
 

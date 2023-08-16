@@ -49,7 +49,7 @@ public class StockController {
 
     @PostMapping("/")
     @ResponseBody
-    public String OpenMarket(@RequestBody RequestDto requestDto) throws Exception {
+    public Integer OpenMarket(@RequestBody RequestDto requestDto) throws Exception {
         SearchParam searchParam = new SearchParam();
         searchParam.setBaseDate(requestDto.getBuyDate().replaceAll("-", ""));
         searchParam.setStockName(requestDto.getStockName());
@@ -89,7 +89,8 @@ public class StockController {
         guest.setPassword("");
         memberRepository.save(guest);
 
-        return guest.getMemberId().toString() + ", " + ranking.getName();
+//        return guest.getMemberId().toString() + ", " + ranking.getName();
+        return income;
     }
 
 
@@ -98,6 +99,20 @@ public class StockController {
         List<Record> all = recordRepository.findAll(Sort.by(Sort.Direction.DESC, "income"));
         model.addAttribute("ranking", all);
         return "ranking";
+    }
+
+    @ResponseBody
+    @GetMapping("/mypage")
+    public String MyPage() {
+
+        return "<script>alert('준비중입니다.');history.back();</script>";
+    }
+
+    @ResponseBody
+    @GetMapping("/contact")
+    public String Contact() {
+
+        return "<script>alert('준비중입니다.');history.back();</script>";
     }
 
     @GetMapping("/jsonapi")
